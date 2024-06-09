@@ -48,13 +48,14 @@ public class ResultServlet extends HttpServlet {
 		 out.println("</title>");
 		 out.println("<body>");
 		 out.println("<h3>Online Voting</h3>");
-		 out.println("<table>");
+		 out.println("<table border = '1'>");
 		 out.println("<thead>");
 		 out.println("<tr>");
 		 out.println("<th>Id</th>");
 		 out.println("<th>Name</th>");
 		 out.println("<th>Party</th>");
 		 out.println("<th>Vote</th>");
+		 out.println("<th>Action</th>");
 		 out.println("</tr>");
 		 out.println("</thead>");
 		 out.println("<tbody>");
@@ -65,7 +66,7 @@ public class ResultServlet extends HttpServlet {
 			 out.printf("<td>%s</td>",c.getName());
 			 out.printf("<td>%s</td>",c.getParty()); 
 			 out.printf("<td>%d</td>",c.getVotes());
-			 
+			 out.printf("<td><a href='editcand?id=%d'><img width='24' height='24' src='images/upate.png'/></a> <a href='delcand?id=%d'><img width='24' height='24' src='images/bin.png'/></a></td>\n", c.getId(), c.getId());
 			 out.println("</tr>");
 		 }
 		 out.println("<tbody/>");

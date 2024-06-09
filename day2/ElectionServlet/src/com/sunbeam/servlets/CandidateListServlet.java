@@ -6,9 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+
 
 import com.sunbeam.daos.CandidateDao;
 import com.sunbeam.daos.CandidateDaoImpl;
@@ -47,6 +50,24 @@ protected void processRequest(HttpServletRequest req, HttpServletResponse resp) 
 	 out.println("</title>");
 	 out.println("<body>");
 	 out.println("<h3>Online Voting</h3>");
+	 String userName = "";
+	 Cookie[] arr = req.getCookies();
+	 if(arr != null)
+	 {
+
+			 for(Cookie c : arr)
+			 {
+				 if(c.getName().equals("uname"))
+				 {
+					 userName = c.getValue();
+					 System.out.println(userName);
+					
+					 break;
+				 }
+			 }
+		 
+	 }
+	 out.printf("Hello,%s<hr/>\n",userName);
 	 out.println("<form method = 'post' action ='vote'>");
 	 for (Candidate c : list) {
 		 out.printf("<input type = 'radio' name = 'candidate' value='%d'/>%s (%s) <br/>\n",c.getId(),c.getName(),c.getParty());

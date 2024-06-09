@@ -4,12 +4,17 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.sunbeam.daos.CandidateDao;
 import com.sunbeam.daos.CandidateDaoImpl;
+import com.sunbeam.daos.UserDao;
+import com.sunbeam.daos.UserDaoImpl;
+import com.sunbeam.entity.User;
 
 public class VoteServlet extends HttpServlet {
 	
@@ -24,19 +29,62 @@ public class VoteServlet extends HttpServlet {
 		processRequest(req,resp);
 	}
 protected void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String candidateId = req.getParameter("candidate");
-		int id = Integer.parseInt(candidateId);
-		try(CandidateDao candDao = new CandidateDaoImpl())
+//		String candidateId = req.getParameter("candidate");
+//		int id = Integer.parseInt(candidateId);
+//		try(CandidateDao candDao = new CandidateDaoImpl())
+//		{
+//		     candDao.incrementVote(id);
+//			
+//		}
+//		catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			throw new ServletException(e);
+//			
+//			
+//			
+//		}
+		
+		HttpSession session =req.getSession();
+		User user = (User)session.getAttribute("curuser");
+		int userId =user.getId();
+		String message = "";
+		
+		if(user.getStatus() == 0)
 		{
-		     candDao.incrementVote(id);
+			String candidateId = req.getParameter("candidate");
+			int id = Integer.parseInt(candidateId);
+			try(CandidateDao candDao = new CandidateDaoImpl())
+			{
+				candDao.incrementVote(id);
+				
+				
+			}
+			catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				throw new ServletException();
+			}
+			
+			message = "Your Vote is registerd successfully.<br/><br/>";
+			try(UserDao userDao = new UserDaoImpl())
+			{
+				userDao.updateStatus(userId, true);
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
 			
 		}
-		catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw new ServletException(e);
+		else
+		{
+			message = "You Have already Voted.<br/><br/>";
 		}
 		
+
 		resp.setContentType("text/html");
 		PrintWriter out = resp.getWriter();
 		out.println("<html>");
@@ -44,6 +92,24 @@ protected void processRequest(HttpServletRequest req, HttpServletResponse resp) 
 		out.println("<title>Voted</title>");
 		out.println("</head>");
 		out.println("<body>");
+		out.println("<h3>Online Voting</h3>");
+		String userName = "";
+		Cookie[] arr = req.getCookies();
+		if(arr!= null)
+		{
+			for(Cookie c :arr)
+			{
+				if(c.getName().equals("uname"))
+				{
+					userName = c.getValue();
+					break;
+				}
+			}
+		}
+		
+		
+		out.printf("Hello, %s<hr/>\n",userName);
+		
 		out.println("Your Vote is registered successfully <br/><br/>");
 		out.println("<a href= 'logout'>Sign Out</a>");
 		out.println("</body>");
