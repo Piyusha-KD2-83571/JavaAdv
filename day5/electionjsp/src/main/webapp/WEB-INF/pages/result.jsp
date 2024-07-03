@@ -30,10 +30,10 @@
 					<td>${c.party}</td>
 					<td>${c.votes}</td>
 					<td>
-						<a href="editcand.jsp?id=${c.id}">
+						<a href="ctl?page=editcand&id=${c.id}">
 							<img src="images/edit.png" alt="Edit" width="24" height="24"/>
 						</a>
-						<a href="delcand.jsp?id=${c.id}">
+						<a href="ctl?page=delcand&id=${c.id}">
 							<img src="images/delete.png" alt="Del" width="24" height="24"/>
 						</a>
 					</td>
@@ -42,6 +42,6 @@
 		</tbody>
 	</table>
 	<br/><br/>
-	<a href="logout.jsp">Sign Out</a>	
+	<a href="/ctl?page=logout">Sign Out</a>	
 </body>
 </html>

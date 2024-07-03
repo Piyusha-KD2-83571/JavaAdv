@@ -69,7 +69,7 @@ public class UpdateCandidateBean {
 		Candidate c = new Candidate(id,name,party,votes);
 		try(CandidateDao candDao = new CandidateDaoImpl())
 		{
-			count 
+			count = candDao.update(c);
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

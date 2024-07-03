@@ -4,13 +4,13 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Log Out</title>
 </head>
 <body>
  
  <h1>Thank You</h1>
  
-  <a href="index.jsp">Login Again</a> 
+  <a href="ctl?page=index">Login Again</a> 
 
 </body>
 </html>

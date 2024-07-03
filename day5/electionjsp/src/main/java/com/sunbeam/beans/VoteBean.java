@@ -61,12 +61,12 @@ public class VoteBean
 	public void votedCandidate()
 	{
 		int count =0;
-		System.out.println("candidateid  :"+candidateId);
-		System.out.println("userid  :"+userId);
+//		System.out.println("candidateid  :"+candidateId);
+//		System.out.println("userid  :"+userId);
 			try(CandidateDao candDao = new CandidateDaoImpl())
 			{
 			   count = candDao.incrementVote(candidateId);
-			   System.out.println("candidateid  :"+count);
+			  // System.out.println("candidateid  :"+count);
 			   if(count!=0)
 			   {
 				   try(UserDao userDao = new UserDaoImpl())

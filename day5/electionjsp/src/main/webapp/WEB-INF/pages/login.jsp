@@ -12,16 +12,16 @@
 	${ lb.authenticate() }
 	<c:choose>
 		<c:when test="${lb.user.role == 'voter'}">
-			<c:redirect url="candlist.jsp"/>		
+			<c:redirect url="ctl?page=candlist"/>		
 		</c:when>
 		<c:when test="${lb.user.role == 'admin'}">
-			<c:redirect url="result.jsp"/>		
+			<c:redirect url="ctl?page=result"/>		
 		</c:when>
 		<c:otherwise>
 			<h3>${initParam.appTitle}</h3>
 			Hello, ${lb.email} <br/>
 			Invalid email or password. <br/><br/>
-			<a href="index.jsp">Login Again</a>		
+			<a href="/ctl?page=index">Login Again</a>		
 		</c:otherwise>
 	</c:choose>
 </body>

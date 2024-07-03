@@ -26,7 +26,7 @@
     
     </c:choose>
     
-   <a href="logout.jsp">Log out</a>    
+   <a href="ctl?page=logout">Log out</a>    
 
 </body>
 </html>
